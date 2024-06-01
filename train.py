@@ -17,6 +17,7 @@ from policy_value_net_pytorch import PolicyValueNet  # Pytorch
 # from policy_value_net_tensorflow import PolicyValueNet # Tensorflow
 # from policy_value_net_keras import PolicyValueNet # Keras
 import os
+from tqdm import tqdm
 
 class TrainPipeline():
     def __init__(self, init_model=None):
@@ -167,7 +168,7 @@ class TrainPipeline():
         try:
             if not os.path.exists(f'{self.board_height}x{self.board_width}'):
                 os.makedirs(f'{self.board_height}x{self.board_width}')
-            for i in range(self.game_batch_num):
+            for i in tqdm(range(self.game_batch_num)):
                 self.collect_selfplay_data(self.play_batch_size)
                 print("batch i:{}, episode_len:{}".format(
                         i+1, self.episode_len))
